@@ -44,6 +44,8 @@ class LaTexAccents_to_UTF8:
         strKey_hungarian   = 'A a E e I i M m O o U u'
         self.populate_encode_dict( encode_dict, strKey_hungarian, strValue_hungarian, "\\H{", "}" )
         regex_detectors.append( re.compile(r'\\H{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_hungarian, strValue_hungarian, "\\H\\", "" )
+        regex_detectors.append( re.compile(r'\\H *\\[a-zA-Z]{1} *') )
 
         # accents (grave) \`{o}
         strValue_grave = 'À à Æ̀ æ̀ È è H̀ h̀ Ì ì K̀ k̀ M̀ m̀ Ǹ ǹ Ò ò R̀ r̀ S̀ s̀ T̀ t̀ Ù ù V̀ v̀ Ẁ ẁ X̀ x̀ Ỳ ỳ Z̀ z̀'
@@ -66,18 +68,24 @@ class LaTexAccents_to_UTF8:
         strKey_hraceck   = 'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
         self.populate_encode_dict( encode_dict, strKey_hraceck, strValue_hraceck, "\\v{", "}" )
         regex_detectors.append( re.compile(r'\\v{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_hraceck, strValue_hraceck, "\\v\\", "" )
+        regex_detectors.append( re.compile(r'\\v *\\[a-zA-Z]{1} *') )
 
         # breve  \u{o}
         strValue_breve = 'Ă ă C̆ c̆ Ĕ ĕ Ğ ğ Ĭ ĭ K̆ k̆ M̆ m̆ N̆ n̆ Ŏ ŏ P̆ p̆ R̆ r̆ T̆ t̆ Ŭ ŭ V̆ v̆ X̆ x̆ Y̆ y̆'
         strKey_breve   = 'A a C c E e G g I i K k M m N n O o P p R r T t U u V v X x Y y'
         self.populate_encode_dict( encode_dict, strKey_breve, strValue_breve, "\\u{", "}" )
         regex_detectors.append( re.compile(r'\\u{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_breve, strValue_breve, "\\u\\", "" )
+        regex_detectors.append( re.compile(r'\\u *\\[a-zA-Z]{1} *') )
 
         # cedilla \c{c}
         strValue_cedilla = 'A̧ a̧ B̧ b̧ Ç ç Ḑ ḑ Ȩ ȩ Ģ ģ Ḩ ḩ I̧ i̧ Ķ ķ Ļ ļ M̧ m̧ Ņ ņ O̧ o̧ Q̧ q̧ Ŗ ŗ Ş ş Ţ ţ U̧ u̧ X̧ x̧ Z̧ z̧'
         strKey_cedilla   = 'A a B b C c D d E e G g H h I i K k L l M m N n O o Q q R r S s T t U u X x Z z'
         self.populate_encode_dict( encode_dict, strKey_cedilla, strValue_cedilla, "\\c{", "}" )
         regex_detectors.append( re.compile(r'\\c{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_cedilla, strValue_cedilla, "\\c\\", "" )
+        regex_detectors.append( re.compile(r'\\c *\\[a-zA-Z]{1} *') )
 
         # dot \.{o}
         strValue_dot = 'Ȧ ȧ Ḃ ḃ Ċ ċ Ḋ ḋ Ė ė Ḟ ḟ Ġ ġ Ḣ ḣ İ i̇̀ K̇ k̇ L̇ l̇ Ṁ ṁ Ṅ ṅ Ȯ ȯ Ṗ ṗ Q̇ q̇ Ṙ ṙ Ṡ ṡ Ṫ ṫ U̇ u̇ V̇ v̇ Ẇ ẇ Ẋ ẋ Ẏ ẏ Ż ż'
@@ -92,12 +100,16 @@ class LaTexAccents_to_UTF8:
         strKey_dot_under   = 'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
         self.populate_encode_dict( encode_dict, strKey_dot_under, strValue_dot_under, "\\d{", "}" )
         regex_detectors.append( re.compile(r'\\d{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_dot_under, strValue_dot_under, "\\d\\", "" )
+        regex_detectors.append( re.compile(r'\\d *\\[a-zA-Z]{1} *') )
 
         # ogonek \k{a}
         strValue_ogonek = 'Ą ą Ę ę Į į Ǫ ǫ Ų ų Y̨ y̨'
         strKey_ogonek   = 'A a E e I i O o U u Y y'
         self.populate_encode_dict( encode_dict, strKey_ogonek, strValue_ogonek, "\\k{", "}" )
         regex_detectors.append( re.compile(r'\\k{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_ogonek, strValue_ogonek, "\\k\\", "" )
+        regex_detectors.append( re.compile(r'\\k *\\[a-zA-Z]{1} *') )
 
         # tilde \~o
         strValue_tilde = 'Ã ã Ẽ ẽ Ĩ ĩ Ñ ñ Õ õ Ũ ũ Ṽ ṽ Ỹ ỹ'
@@ -120,12 +132,16 @@ class LaTexAccents_to_UTF8:
         strKey_bar_under   = 'A a B b C c D d E e G g H h I i J j K k L l M m N n O o P p R r S s T t U u X x Y y Z z'
         self.populate_encode_dict( encode_dict, strKey_bar_under, strValue_bar_under, "\\b{", "}" )
         regex_detectors.append( re.compile(r'\\b{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_bar_under, strValue_bar_under, "\\b\\", "" )
+        regex_detectors.append( re.compile(r'\\b *\\[a-zA-Z]{1} *') )
 
         # ring over the letter \r{a}
         strValue_ring = 'Å å D̊ d̊ E̊ e̊ G̊ g̊ I̊ i̊ J̊ j̊ O̊ o̊ Q̊ q̊ S̊ s̊ Ů ů V̊ v̊ W̊ ẘ X̊ x̊ Y̊ ẙ'
         strKey_ring   = 'A a d d E e G g I i J j O o Q q S s U u V v W w X x Y y'
         self.populate_encode_dict( encode_dict, strKey_ring, strValue_ring, "\\r{", "}" )
         regex_detectors.append( re.compile(r'\\r{ *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_ring, strValue_ring, "\\r\\", "" )
+        regex_detectors.append( re.compile(r'\\r *\\[a-zA-Z]{1} *') )
 
         return encode_dict, regex_detectors
 
