@@ -24,15 +24,20 @@ class LaTexAccents_to_UTF8:
         # each translation rule (i.e. [accent pattern + ascii char => UTF8 value] must be accompanied with a regex pattern to detect it)
         strValue_umlaut = 'Ä ä B̈ b̈ C̈ c̈ Ë ë Ḧ ḧ Ï ï K̈ k̈ M̈ m̈ N̈ n̈ Ö ö P̈ p̈ Q̈ q̈ S̈ s̈ T̈ ẗ Ü ü V̈ v̈ Ẅ ẅ Ẍ ẍ Ÿ ÿ Z̈ z̈'
         strKey_umlaut   = 'A a B b C c E e H h I i K k M m N n O o P p Q q S s T t U u V v W w X x Y y Z z'
-        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '\\"', "" )
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '{\\"', "}" )
+        regex_detectors.append( re.compile(r'{ *\\" *[a-zA-Z]{1} *}') )
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '\\"', ""  )
         regex_detectors.append( re.compile(r'\\" *[a-zA-z]{1}' ) ) # backslash followed by " followed by any number of spaces followed by a char
         self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '\\"{', "}" )
         regex_detectors.append( re.compile(r'\\"{ *[a-zA-Z]{1} *}') )
 
 
+
         # accents (acute) \'{o}
         strValue_acute = 'Á á B́ b́ Ć ć D́ d́ É é F́ f́ Ǵ ǵ H́ h́ Í í J́ ȷ́ Ḱ ḱ Ĺ ĺ Ḿ ḿ Ń ń Ó ó Ṕ ṕ Q́ q́ Ŕ ŕ Ś ś T́ t́ Ú ú V́ v́ Ẃ ẃ X́ x́ Ý ý Ź ź'
         strKey_acute   = 'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\'", "}" )
+        regex_detectors.append( re.compile(r"{ *\\' *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_acute, strValue_acute, "\\'", "" )
         regex_detectors.append( re.compile(r"\\' *[a-zA-z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_acute, strValue_acute, "\\'{", "}" )
@@ -50,6 +55,8 @@ class LaTexAccents_to_UTF8:
         # accents (grave) \`{o}
         strValue_grave = 'À à Æ̀ æ̀ È è H̀ h̀ Ì ì K̀ k̀ M̀ m̀ Ǹ ǹ Ò ò R̀ r̀ S̀ s̀ T̀ t̀ Ù ù V̀ v̀ Ẁ ẁ X̀ x̀ Ỳ ỳ Z̀ z̀'
         strKey_grave   = 'A a Æ æ E e H h I i K k M m N n O o R r S s T t U u V v W w X x Y y Z z'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\`", "}" )
+        regex_detectors.append( re.compile(r"{ *\\` *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_grave, strValue_grave, "\\`", "" )
         regex_detectors.append( re.compile(r"\\` *[a-zA-z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_grave, strValue_grave, "\\`{", "}" )
@@ -58,6 +65,8 @@ class LaTexAccents_to_UTF8:
         # circumflex \^{o}
         strValue_circumflex = 'Â â B̂ b̂ Ĉ ĉ D̂ d̂ Ê ê Ĝ ĝ Ĥ ĥ Î î Ĵ ĵ K̂ k̂ L̂ l̂ M̂ m̂ N̂ n̂ Ô ô R̂ r̂ Ŝ ŝ T̂ t̂ Û û V̂ v̂ Ŵ ŵ X̂ x̂ Ŷ ŷ Ẑ ẑ'
         strKey_circumflex   = 'A a B b C c D d E e G g H h I i J j K k L l M m N n O o R r S s T t U u V v W w X x Y y Z z'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\^", "}" )
+        regex_detectors.append( re.compile(r"{ *\\^ *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_circumflex, strValue_circumflex, "\\^", "" )
         regex_detectors.append( re.compile(r"\\\^ *[a-zA-z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_circumflex, strValue_circumflex, "\\^{", "}" )
@@ -90,6 +99,8 @@ class LaTexAccents_to_UTF8:
         # dot \.{o}
         strValue_dot = 'Ȧ ȧ Ḃ ḃ Ċ ċ Ḋ ḋ Ė ė Ḟ ḟ Ġ ġ Ḣ ḣ İ i̇̀ K̇ k̇ L̇ l̇ Ṁ ṁ Ṅ ṅ Ȯ ȯ Ṗ ṗ Q̇ q̇ Ṙ ṙ Ṡ ṡ Ṫ ṫ U̇ u̇ V̇ v̇ Ẇ ẇ Ẋ ẋ Ẏ ẏ Ż ż'
         strKey_dot   = 'A a B b C c D d E e F f G g H h I i K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\\.", "}" )
+        regex_detectors.append( re.compile(r"{ *\\\. *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot, "\\.", "" )
         regex_detectors.append( re.compile(r"\\\. *[a-zA-z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot, "\\.{", "}" )
@@ -114,6 +125,8 @@ class LaTexAccents_to_UTF8:
         # tilde \~o
         strValue_tilde = 'Ã ã Ẽ ẽ Ĩ ĩ Ñ ñ Õ õ Ũ ũ Ṽ ṽ Ỹ ỹ'
         strKey_tilde   = 'A a E e I i N n O o U u V v Y y'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\~", "}" )
+        regex_detectors.append( re.compile(r"{ *\\~ *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_tilde, strValue_tilde, "\\~", "" )
         regex_detectors.append( re.compile('\\\~ *[a-zA-Z]{1}') )
         self.populate_encode_dict( encode_dict, strKey_tilde, strValue_tilde, "\\~{", "}" )
@@ -122,6 +135,8 @@ class LaTexAccents_to_UTF8:
         # macron \=a
         strValue_macron = 'Ā ā B̄ b̄ C̄ c̄ D̄ d̄ Ē ē Ḡ ḡ Ī ī J̄ j̄ K̄ k̄ M̄ m̄ N̄ n̄ Ō ō P̄ p̄ Q̄ q̄ R̄ r̄ S̄ s̄ T̄ t̄ Ū ū V̄ v̄ W̄ w̄ X̄ x̄ Ȳ ȳ Z̄ z̄'
         strKey_macron   = 'A a B b C c D d E e G g I i J j K k M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
+        self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  "{\\=", "}" )
+        regex_detectors.append( re.compile(r"{ *\\= *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_macron, strValue_macron, "\\=", "" )
         regex_detectors.append( re.compile('\\\= *[a-zA-Z]{1}') )
         self.populate_encode_dict( encode_dict, strKey_macron, strValue_macron, "\\={", "}" )
