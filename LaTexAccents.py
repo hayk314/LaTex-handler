@@ -1,4 +1,5 @@
-# transforming Latex accents to their UTF8 equivalents
+# Author: Hayk Aleksanyan
+# for transforming LaTex accents to their UTF8 equivalents
 
 import re
 
@@ -20,7 +21,7 @@ class LaTexAccents_to_UTF8:
         regex_detectors = [] # each item is a regex detecting a given Latex accent pattern
 
 
-        #Diaeresis (diacritic, umlatut)  \"{o}
+        # Diaeresis (diacritic, umlatut)  \"{o}
         # each translation rule (i.e. [accent pattern + ascii char => UTF8 value] must be accompanied with a regex pattern to detect it)
         strValue_umlaut = 'Ä ä B̈ b̈ C̈ c̈ Ë ë Ḧ ḧ Ï ï K̈ k̈ M̈ m̈ N̈ n̈ Ö ö P̈ p̈ Q̈ q̈ S̈ s̈ T̈ ẗ Ü ü V̈ v̈ Ẅ ẅ Ẍ ẍ Ÿ ÿ Z̈ z̈'
         strKey_umlaut   = 'A a B b C c E e H h I i K k M m N n O o P p Q q S s T t U u V v W w X x Y y Z z'
@@ -164,12 +165,12 @@ class LaTexAccents_to_UTF8:
 
     def populate_encode_dict(self, encode_dict, strKey, strValue, accent_pattern_left, accent_pattern_right = '' ):
         """
-        @encode_dict is the dictionary we need to populate; passed by refernece
-        @strKey is a string separated by spaces, where each string is an ascii letter
-        @strValue is a string seprated by spaces, where each item is the UTF8 variant of the strKey in the same position
+            @encode_dict is the dictionary we need to populate; passed by refernece
+            @strKey is a string separated by spaces, where each string is an ascii letter
+            @strValue is a string seprated by spaces, where each item is the UTF8 variant of the strKey in the same position
 
-        @accent_pattern_left is a string representing the LaTex accent pattern from the left (e.g. \\", \\H{)
-        @accent_pattern_right is a string representing the LaTex accent pattern from the right (e.g. , } )
+            @accent_pattern_left is a string representing the LaTex accent pattern from the left (e.g. \\", \\H{)
+            @accent_pattern_right is a string representing the LaTex accent pattern from the right (e.g. , } )
         """
 
         s_key = strKey.split(' ')
