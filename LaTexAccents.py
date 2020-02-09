@@ -3,20 +3,21 @@
 
 import re
 
-class LaTexAccents_to_UTF8:
+class AccentConverter:
 
     def __init__(self):
 
-        self.translation_rule, self.accent_detector = self.create_Translation_Rules()
+        self.translation_rule, self.accent_detector = self.__create_translation_rules()
         # the translation dictionary, and the set of (regex) detectors for accents
         # each dictionary addition comes with its own (at least 1) detector
 
-    def create_Translation_Rules(self):
+    def __create_translation_rules(self):
         """
-         creates the rule of translation from latex accent to their equivalent UTF8
-         the rules are stored as (key,value) pairs in the dictionary encode_dict,
-         where the key is the latex accent pattern + a letter, and it's value is the corresponding UTF8 char
+            creates the rule of translation from latex accent to their equivalent UTF8
+            the rules are stored as (key,value) pairs in the dictionary encode_dict,
+             where the key is the latex accent pattern + a letter, and it's value is the corresponding UTF8 char
         """
+
         encode_dict = {}     # each key is an accented Ascii char (without blank space), its corresponding value is its UTF8 version
         regex_detectors = [] # each item is a regex detecting a given Latex accent pattern
 
@@ -162,7 +163,6 @@ class LaTexAccents_to_UTF8:
         return encode_dict, regex_detectors
 
 
-
     def populate_encode_dict(self, encode_dict, strKey, strValue, accent_pattern_left, accent_pattern_right = '' ):
         """
             @encode_dict is the dictionary we need to populate; passed by refernece
@@ -178,14 +178,16 @@ class LaTexAccents_to_UTF8:
 
         assert( len( s_key ) == len(s_value) )
 
-        for i in range( 0, len(s_key) ):
-            encode_dict[ accent_pattern_left + s_key[i] + accent_pattern_right ] = s_value[i]
+        for i, charKey in enumerate(s_key):
+            encode_dict[ accent_pattern_left + charKey + accent_pattern_right ] = (s_value[i], charKey)
 
 
-    def decode_Tex_Accents(self, s ):
-        # takes a string input, replaces all TeX style accents by their UTF8 equivalent
+    def decode_Tex_Accents(self, s, utf8_or_ascii=1):
+        """ takes a string input @s, replaces all TeX style accents by their equivalent UTF-8 or ASCII character
+            if @utf8_or_ascii==1 replacement is by UTF-8 variant, otherwise plain ASCII will be used
+        """
 
-        for i in range(0, len(self.accent_detector)):
+        for i in range(len(self.accent_detector)):
             accent_pattern = self.accent_detector[i] # this is a complied regex corresponding to some accent pattern
 
             m = set( re.findall(accent_pattern, s) ) # we might have the same substring appearing several times.
@@ -194,6 +196,10 @@ class LaTexAccents_to_UTF8:
             for s1 in m:
                 x = s1.replace(' ','') # remove the spaces to match the format of translation table
                 if x in self.translation_rule.keys():
-                    s = s.replace( s1, self.translation_rule[ x ] )
+                    if utf8_or_ascii == 1:
+                        s = s.replace( s1, self.translation_rule[x][0] )
+                    else:
+                        s = s.replace( s1, self.translation_rule[x][1] )
+
 
         return s
