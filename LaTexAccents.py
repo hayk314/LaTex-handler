@@ -69,10 +69,12 @@ class AccentConverter:
         strKey_circumflex   = 'A a B b C c D d E e G g H h I i J j K k L l M m N n O o R r S s T t U u V v W w X x Y y Z z'
         self.populate_encode_dict( encode_dict, strKey_circumflex,
                                    strValue_circumflex,  "{\\^", "}" )
-        regex_detectors.append( re.compile(r"{ *\\^ *[a-zA-Z]{1} *}") )
-        self.populate_encode_dict( encode_dict, strKey_circumflex, strValue_circumflex, "\\^", "" )
+        regex_detectors.append( re.compile(r"{ *\\\^ *[a-zA-Z]{1} *}") )
+        self.populate_encode_dict( encode_dict, strKey_circumflex,
+                                   strValue_circumflex, "\\\^", "" )
         regex_detectors.append( re.compile(r"\\\^ *[a-zA-z]{1}" ) )
-        self.populate_encode_dict( encode_dict, strKey_circumflex, strValue_circumflex, "\\^{", "}" )
+        self.populate_encode_dict( encode_dict, strKey_circumflex,
+                                   strValue_circumflex, "\\\^{", "}" )
         regex_detectors.append( re.compile(r"\\\^{ *[a-zA-Z]{1} *}") )
 
         # caron hraceck \v{s}
